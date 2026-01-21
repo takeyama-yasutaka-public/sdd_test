@@ -1,0 +1,247 @@
+/*********************************
+    インポート
+*********************************/
+
+//スタイル
+import styles from './page.module.scss'
+//フック
+import type { Metadata } from 'next'
+import { siteMeta, eyecatchLocal } from '@/lib/constants'
+import { getCasePostById, getCaseAll } from '@/lib/api'
+import { extractText } from '@/lib/extract-text'
+import { getImageBuffer } from '@/lib/getImageBuffer'
+import { getPlaiceholder } from 'plaiceholder'
+//コンポーネント
+import * as Layout from '@/components/layout/index'
+import * as Content from '@/components/content/index'
+import * as Function from '@/components/function/index'
+import Image from 'next/image'
+
+/*********************************
+    変数定義
+*********************************/
+
+type Params = {
+  params: { id: string }
+}
+
+//サイトデータの定義
+const pageData = function (
+  title: string,
+  content: string,
+  id: string,
+  eyecatchUrl?: string,
+  eyecatchWidth?: string,
+  eyecatchHeight?: string
+) {
+  const pageName = title
+  const pageTitle = `${pageName} | `
+  const pageDescription = extractText(content)
+  const pageId = id
+  const pagePath = `/case/${pageId}`
+  const pageType = 'article'
+  const imageUrl = eyecatchUrl
+  const imageWidth = eyecatchWidth
+  const imageHeight = eyecatchHeight
+
+  return {
+    pageName: pageName,
+    pageTitle: pageTitle,
+    pageDescription: pageDescription,
+    pageId: pageId,
+    pagePath: pagePath,
+    pageType: pageType,
+    imageUrl: imageUrl,
+    imageWidth: imageWidth,
+    imageHeight: imageHeight,
+  }
+}
+
+//パンくずデータの定義
+const breadcrumbData = function (id: string, name: string) {
+  const breadcrumb = [
+    { path: '/', name: 'TOP' },
+    { path: '/case', name: '実績' },
+    { path: `/case/${id}`, name: name },
+  ]
+
+  return breadcrumb
+}
+
+/*********************************
+    ダイナミックルーティング
+*********************************/
+
+export async function generateStaticParams() {
+  //ブログ一覧の取得
+  const postsObj = await getCaseAll()
+  const posts = postsObj.contents
+
+  return posts.map((post: { id: string }) => ({
+    id: post.id,
+  }))
+}
+
+//該当ページがない時404を表示する
+export const dynamicParams = false
+
+/*********************************
+    メタデータのエクスポート
+*********************************/
+
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
+  //現在IDを取得
+  const id = params.id
+  //ブログ記事の取得
+  const post = await getCasePostById(id)
+
+  //代替アイキャッチ画像への置換
+  const eyecatch = post.eyecatch ?? eyecatchLocal
+
+  //サイトデータ
+  const pageDatas = pageData(
+    post.title,
+    post.content,
+    id,
+    eyecatch.url,
+    eyecatch.width,
+    eyecatch.height
+  )
+
+  //メタデータの出力
+  return {
+    title: pageDatas.pageTitle
+      ? `${pageDatas.pageTitle}${siteMeta.siteTitle}`
+      : siteMeta.siteTitle,
+    description: pageDatas.pageDescription || siteMeta.siteDesc,
+    alternates: {
+      canonical: pageDatas.pagePath
+        ? `${siteMeta.siteUrl}${pageDatas.pagePath}`
+        : siteMeta.siteUrl,
+    },
+    openGraph: {
+      title: pageDatas.pageTitle
+        ? `${pageDatas.pageTitle}${siteMeta.siteTitle}`
+        : siteMeta.siteTitle,
+      description: pageDatas.pageDescription || siteMeta.siteDesc,
+      siteName: siteMeta.siteTitle,
+      type: (pageDatas.pageType as 'article' | 'website') || siteMeta.siteType,
+      locale: siteMeta.siteLocale,
+      url: pageDatas.pagePath
+        ? `${siteMeta.siteUrl}${pageDatas.pagePath}`
+        : siteMeta.siteUrl,
+      images: {
+        url: pageDatas.imageUrl || siteMeta.siteImgSrc,
+        width: pageDatas.imageWidth || siteMeta.siteImgWidth,
+        height: pageDatas.imageHeight || siteMeta.siteImgHeight,
+      },
+    },
+    twitter: {
+      title: pageDatas.pageTitle
+        ? `${pageDatas.pageTitle}${siteMeta.siteTitle}`
+        : siteMeta.siteTitle,
+      description: pageDatas.pageDescription || siteMeta.siteDesc,
+      images: {
+        url: pageDatas.imageUrl || siteMeta.siteImgSrc,
+        width: pageDatas.imageWidth || siteMeta.siteImgWidth,
+        height: pageDatas.imageHeight || siteMeta.siteImgHeight,
+      },
+    },
+    robots: {
+      index: false,
+    },
+  }
+}
+
+/*********************************
+   ページデータのエクスポート
+*********************************/
+
+export default async function Page({ params }: Params) {
+  //現在IDを取得
+  const { id } = params
+  //ブログ記事の取得
+  const post = await getCasePostById(id)
+
+  //代替アイキャッチ画像への置換
+  const eyecatch = post.eyecatch ?? eyecatchLocal
+  //ブラー画像の生成
+  const imageBuffer = await getImageBuffer(eyecatch.url)
+  const { base64 } = await getPlaiceholder(imageBuffer)
+  eyecatch.blurDataURL = base64
+
+  //サイトデータ
+  const pageDatas = pageData(
+    post.title,
+    post.content,
+    id,
+    eyecatch.url,
+    eyecatch.width,
+    eyecatch.height
+  )
+  //パンくずデータ
+  const breadcrumb = breadcrumbData(pageDatas.pageId, pageDatas.pageName)
+
+  //ページの出力
+  return (
+    <>
+      <Function.StructuredData
+        type={pageDatas.pageType}
+        name={pageDatas.pageName}
+        description={pageDatas.pageDescription}
+        imageUrl={pageDatas.imageUrl}
+        path={pageDatas.pagePath}
+        breadcrumb={breadcrumb}
+      />
+
+      <Layout.Background />
+
+      <Layout.Container modifier="small">
+        <Layout.Content>
+          <Layout.ContentHeader>
+            <Layout.ContentHeaderTop>
+              <Content.ClassLabelGroup>
+                {post.category.map(
+                  ({ name, id }: { name: string; id: string }) => (
+                    <Content.ClassLabel
+                      text={name}
+                      modifier="single"
+                      key={id}
+                    />
+                  )
+                )}
+              </Content.ClassLabelGroup>
+            </Layout.ContentHeaderTop>
+            <Content.Heading h="h1" modifier="first">
+              {post.title}
+            </Content.Heading>
+          </Layout.ContentHeader>
+          <Layout.ContentBody>
+            <div className={styles.imageWrapper}>
+              <Image
+                src={eyecatch.url}
+                alt={post.title}
+                width={eyecatch.width}
+                height={eyecatch.height}
+                placeholder="blur"
+                blurDataURL={eyecatch.blurDataURL}
+                style={{ transition: '0.1s' }}
+                priority
+              />
+            </div>
+            <Content.PostArea>
+              <Function.ConvertBody contentHTML={post.content} />
+            </Content.PostArea>
+          </Layout.ContentBody>
+          <Layout.ContentFooter>
+            <Content.Button href="/case">一覧へ戻る</Content.Button>
+          </Layout.ContentFooter>
+        </Layout.Content>
+      </Layout.Container>
+
+      <Layout.Breadcrumb breadcrumb={breadcrumb} />
+
+      <Content.CtaArea />
+    </>
+  )
+}

@@ -1,0 +1,148 @@
+@use '@/styles/global' as *;
+
+.about {
+  display: flex;
+  align-items: center;
+  gap: pxvw(80);
+  color: $s-color_text_on-fill;
+
+  @include media(sp) {
+    flex-direction: column;
+
+    .imageWrapper {
+      width: 100%; //iphoneの画像が小さくなるのを防ぐ
+
+      > * {
+        width: 100%; //iphoneの画像が小さくなるのを防ぐ
+      }
+    }
+  }
+
+  .imageWrapper {
+    position: relative;
+
+    > * {
+      position: relative;
+      z-index: 0;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: pxrem(80);
+      left: pxrem(-47);
+      width: 300%;
+      height: 200%;
+      border-top: solid 1px $p-color_white;
+      border-left: solid 1px $p-color_white;
+      border-radius: 72px 0 0 0;
+      opacity: 0.2;
+
+      @include media(sp) {
+        top: pxrem(-40);
+        left: pxrem(74);
+        border-radius: 36px 0 0 0;
+      }
+    }
+  }
+}
+
+.service {
+  display: flex;
+  flex-direction: column;
+  gap: pxvw(80);
+
+  .media {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.case {
+  display: flex;
+  flex-direction: column;
+  gap: pxvw(80);
+
+  .cardWrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: pxrem(154);
+      bottom: pxrem(-44);
+      left: pxrem(-40);
+      width: 200%;
+      background-color: $p-color_brand-main_fifthary;
+      border-radius: 72px 0 0 0;
+
+      @include media(sp) {
+        top: pxrem(-48);
+        bottom: pxrem(40);
+        left: pxrem(74);
+        border-radius: 36px 0 0 0;
+      }
+    }
+  }
+}
+
+.news {
+  display: flex;
+  gap: pxvw(80);
+
+  @include media(sp) {
+    flex-direction: column;
+  }
+
+  .body {
+    flex: none;
+  }
+
+  .postWrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: pxvw(40);
+
+    @include media(sp) {
+      gap: pxvw(80);
+    }
+  }
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: pxrem(40);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: pxrem(20);
+}
+
+.bottom {
+  display: flex;
+
+  @include media(sp) {
+    justify-content: center;
+  }
+}
+
+.textStrong {
+  @include font($font-size_xxl);
+  line-height: $line-height_s;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+
+  @include media(sp) {
+    justify-content: center;
+  }
+}

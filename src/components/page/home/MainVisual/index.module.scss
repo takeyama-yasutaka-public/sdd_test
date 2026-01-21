@@ -1,0 +1,163 @@
+@use '@/styles/global' as *;
+
+$min-height_pc: 0.9;
+$max-height_pc: 1.1;
+$min-height_sp: 0.9;
+$max-height_sp: 1.1;
+
+.mainvisual {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: clamp(
+    calc(pxrem(1100) * $min-height_pc),
+    pxvh(1100),
+    calc(pxrem(1100) * $max-height_pc)
+  );
+
+  @include media(sp) {
+    height: clamp(
+      calc(pxrem(870) * $min-height_sp),
+      pxvh(870),
+      calc(pxrem(870) * $max-height_sp)
+    );
+  }
+}
+
+.english {
+  margin-top: clamp(
+    calc(pxrem(60) * $min-height_pc),
+    pxvh(60),
+    calc(pxrem(60) * $max-height_pc)
+  );
+  margin-left: pxvw(60);
+  color: $p-color_brand-main_primary;
+  font-family: $font-family_secondary;
+  @include font(min(pxrem(100), pxvw(100)));
+  line-height: 1.1;
+  font-weight: $font-weight_l;
+
+  @include media(sp) {
+    margin-top: clamp(
+      calc(pxrem(40) * $min-height_sp),
+      pxvh(40),
+      calc(pxrem(40) * $max-height_sp)
+    );
+    margin-left: pxvw(20);
+    @include font(pxvw(32));
+  }
+}
+
+.japanise {
+  margin-top: clamp(
+    calc(pxrem(60) * $min-height_pc),
+    pxvh(60),
+    calc(pxrem(60) * $max-height_pc)
+  );
+  margin-left: pxvw(60);
+  @include font(clamp(pxrem(20), pxvw(24), pxrem(24)));
+  line-height: $line-height_s;
+
+  @include media(sp) {
+    margin-top: clamp(
+      calc(pxrem(20) * $min-height_sp),
+      pxvh(20),
+      calc(pxrem(20) * $max-height_sp)
+    );
+    margin-left: pxvw(20);
+    @include font(min(pxrem(20), pxvw(20)));
+  }
+}
+
+.arrow {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  left: pxvw(84);
+  bottom: clamp(
+    calc(pxrem(338) * $min-height_pc),
+    pxvh(338),
+    calc(pxrem(338) * $max-height_pc)
+  );
+
+  @include media(sp) {
+    left: pxvw(16);
+    bottom: clamp(
+      calc(pxrem(248) * $min-height_sp),
+      pxvh(248),
+      calc(pxrem(248) * $max-height_sp)
+    );
+  }
+
+  p {
+    display: inline-block;
+    color: $p-color_white;
+    @include font($font-size_s);
+    line-height: $line-height_s;
+    font-weight: $font-weight_r;
+    transform: rotate(-90deg);
+  }
+
+  span {
+    position: relative;
+    display: block;
+    margin-top: pxrem(30);
+    width: 1px;
+    height: 45px;
+    background-color: $p-color_white;
+    animation: fadeInOutMove 2s ease-in-out infinite;
+  }
+
+  span::after {
+    content: '';
+    position: absolute;
+    display: block;
+    bottom: -1px;
+    right: 6px;
+    width: 1px;
+    height: 15px;
+    background-color: $p-color_white;
+    transform: rotate(-45deg);
+  }
+}
+
+@keyframes fadeInOutMove {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+.bottom {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: clamp(
+    calc(pxrem(600) * $min-height_pc),
+    pxvh(600),
+    calc(pxrem(600) * $max-height_pc)
+  );
+  background-color: $p-color_brand-main_primary;
+  border-radius: 72px 0px 0px 0px;
+  z-index: -2;
+
+  @include media(sp) {
+    height: clamp(
+      calc(pxrem(480) * $min-height_pc),
+      pxvh(480),
+      calc(pxrem(480) * $max-height_pc)
+    );
+    border-radius: 36px 0px 0px 0px;
+  }
+}

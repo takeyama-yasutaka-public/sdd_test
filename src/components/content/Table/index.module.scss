@@ -1,0 +1,119 @@
+@use '@/styles/global' as *;
+
+.table {
+  display: inline-block;
+  border-spacing: 0;
+  border-collapse: separate;
+
+  &[data-modifierDimension='horizontal'] {
+    th {
+      @include media(sp) {
+        width: auto;
+      }
+    }
+  }
+
+  &[data-modifierDimension='vertical'] {
+    tbody {
+      tr {
+        &:first-child > * {
+          border-top: none;
+        }
+      }
+    }
+  }
+
+  &[data-modifierDimension='cross'] {
+    thead {
+      tr {
+        &:first-child > *:first-child {
+          background-color: $p-color_white;
+          border-top: none;
+          border-left: none;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        &:first-child > * {
+          border-top: none;
+        }
+      }
+    }
+  }
+
+  &[data-modifierScroll='spScroll'] {
+    overflow-x: auto;
+
+    th,
+    td {
+      white-space: nowrap;
+    }
+  }
+
+  tr {
+    &:first-child > * {
+      border-top: 1px solid $s-color_border_field;
+    }
+  }
+
+  th {
+    padding: pxrem(10);
+    border: none;
+    border-right: 1px solid $s-color_border_field;
+    border-bottom: 1px solid $s-color_border_field;
+    background-color: $p-color_brand-main_tertiary;
+    line-height: $line-height_s;
+    font-weight: $font-weight_r;
+    vertical-align: middle;
+
+    &:first-child {
+      border-left: 1px solid $s-color_border_field;
+    }
+  }
+
+  td {
+    padding: pxrem(10);
+    border: none;
+    border-right: 1px solid $s-color_border_field;
+    border-bottom: 1px solid $s-color_border_field;
+    line-height: $line-height_s;
+    vertical-align: middle;
+
+    &:first-child {
+      border-left: 1px solid $s-color_border_field;
+    }
+  }
+}
+
+.tableAbout {
+  border-spacing: 0;
+  border-collapse: separate;
+  border-spacing: pxrem(20) 0;
+  margin: 0 pxrem(-20);
+
+  th {
+    width: pxrem(200);
+    padding: pxrem(15) 0 pxrem(13.5) 0;
+    border: none;
+    border-bottom: 1px solid $p-color_brand-main_fifthary;
+    line-height: $line-height_s;
+    font-weight: $font-weight_r;
+    vertical-align: middle;
+  }
+
+  td {
+    padding: pxrem(15) 0 pxrem(13.5) 0;
+    border: none;
+    border-bottom: 1px solid $p-color_brand-main_tertiary;
+    line-height: $line-height_s;
+    vertical-align: middle;
+  }
+
+  @include media(sp) {
+    th {
+      width: pxrem(100);
+    }
+  }
+}

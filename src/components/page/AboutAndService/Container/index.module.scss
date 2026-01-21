@@ -1,0 +1,161 @@
+@use '@/styles/global' as *;
+
+.container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: calc(pxrem(1200) + pxrem(160));
+    padding: pxrem(160) pxrem(80);
+    z-index: 1;
+
+    @include media(sp) {
+      padding: pxrem(160) pxrem(40);
+    }
+  }
+
+  &[data-modifier='mission-and-vision'] {
+    position: relative;
+
+    .inner {
+      gap: pxrem(160);
+    }
+  }
+
+  &[data-modifier='massage'] {
+    position: relative;
+    background-color: $p-color_brand-main_primary;
+    color: $p-color_white;
+  }
+
+  &[data-modifier='company'] {
+    .inner {
+      gap: pxrem(40);
+    }
+  }
+
+  &[data-modifier='business-model'] {
+    position: relative;
+    margin-top: pxrem(80);
+    background-color: $p-color_brand-main_tertiary;
+  }
+
+  &[data-modifier='our-service'] {
+    .inner {
+      gap: pxrem(80);
+    }
+  }
+}
+
+.massageBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0.2;
+  z-index: 0;
+
+  .backgroundInner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .line1 {
+    position: absolute;
+    top: 0;
+    left: pxvw(630);
+    width: 1px;
+    height: 300%;
+    background-color: $p-color_white;
+    transform-origin: top;
+    transform: rotate(30deg);
+
+    @include media(sp) {
+      left: pxvw(300);
+    }
+  }
+
+  .line2 {
+    position: absolute;
+    top: 0;
+    left: pxvw(750);
+    width: 1px;
+    height: 300%;
+    background-color: $p-color_white;
+    transform-origin: top;
+    transform: rotate(30deg);
+
+    @include media(sp) {
+      left: pxvw(400);
+    }
+  }
+}
+
+.businessModelBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+
+  .backgroundInner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .line1 {
+    position: absolute;
+    bottom: 0;
+    right: pxvw(630);
+    width: 1px;
+    height: 300%;
+    background-color: $p-color_white;
+    transform-origin: bottom;
+    transform: rotate(30deg);
+
+    @include media(sp) {
+      right: pxvw(300);
+    }
+  }
+
+  .line2 {
+    position: absolute;
+    bottom: 0;
+    right: pxvw(750);
+    width: 1px;
+    height: 300%;
+    background-color: $p-color_white;
+    transform-origin: bottom;
+    transform: rotate(30deg);
+
+    @include media(sp) {
+      right: pxvw(400);
+    }
+  }
+
+  .bottombox {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: pxvw(760);
+    height: pxrem(600);
+    border-top: solid 1px $p-color_white;
+    border-left: solid 1px $p-color_white;
+    border-radius: pxvw(200) 0 0 0;
+
+    @include media(sp) {
+      width: pxvw(200);
+      border-radius: pxvw(100) 0 0 0;
+    }
+  }
+}

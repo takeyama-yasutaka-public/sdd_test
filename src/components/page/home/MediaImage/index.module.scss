@@ -1,0 +1,12 @@
+@use '@/styles/global' as *;
+
+.img {
+  width: min(520px, pxvw(520));
+  @include image-aspect-ratio(ratio_1-1);
+  border-radius: 32px 0px 32px 0px;
+
+  @include media(sp) {
+    width: 100%;
+    border-radius: 16px 0px 16px 0px;
+  }
+}

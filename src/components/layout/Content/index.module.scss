@@ -1,0 +1,14 @@
+@use '@/styles/global' as *;
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: pxrem(40);
+  }
+}
