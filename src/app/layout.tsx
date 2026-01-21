@@ -3,24 +3,16 @@
 *********************************/
 
 //スタイル
-import '@/styles/style.scss'
+import './globals.css'
 //フック
 import type { Metadata } from 'next'
-import { siteMeta } from '@/lib/constants'
+import { siteMeta } from '@/features/utils/constants/constants'
 //コンポーネント
-import * as Layout from '@/components/layout/index'
-import * as Function from '@/components/function/index'
+import * as Layout from '@/components/ui-kit/layout/index'
+import * as Function from '@/components/ui-features/NavigationEvents/NavigationEvents'
 import { Suspense } from 'react'
 //フォント
-import { notojp, montserrat } from '@/lib/fonts'
-
-/*********************************
-    Font Awesome
-*********************************/
-
-import '@fortawesome/fontawesome-svg-core/styles.css'
-import { config } from '@fortawesome/fontawesome-svg-core'
-config.autoAddCss = false
+import { notojp, montserrat } from '@/features/utils/fonts/fonts'
 
 /*********************************
     メタデータのエクスポート

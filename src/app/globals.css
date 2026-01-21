@@ -1,0 +1,174 @@
+/**
+ * globals.css
+ * Tailwind CSS v4のCSS-first設定
+ * 仕様書: docs/ui/variables/
+ */
+
+@import "tailwindcss";
+
+/* カスタムカラー定義 */
+@theme {
+  /* Primitiveカラー（直接使用禁止） */
+  --color-p-grey-50: #f2f2f2;
+  --color-p-grey-100: #e6e6e6;
+  --color-p-grey-200: #cccccc;
+  --color-p-grey-300: #b3b3b3;
+  --color-p-grey-400: #999999;
+  --color-p-grey-500: #7f7f7f;
+  --color-p-grey-600: #666666;
+  --color-p-grey-700: #4d4d4d;
+  --color-p-grey-800: #333333;
+  --color-p-grey-900: #1a1a1a;
+  --color-p-white: #ffffff;
+
+  /* ブランドカラー */
+  --color-primary: #0054d4;
+  --color-secondary: #002a6a;
+  --color-tertiary: #e6eefb;
+  --color-quaternary: #fafcfe;
+  --color-fifthary: #80aaea;
+
+  /* Semanticカラー（実装で使用） */
+  --color-text-body: #1a1a1a;
+  --color-text-description: #4d4d4d;
+  --color-text-placeholder: #999999;
+  --color-text-on-fill: #ffffff;
+  --color-text-disabled: #7f7f7f;
+  --color-link-normal: #0017c1;
+  --color-link-hover: #00118f;
+  --color-link-active: #00118f;
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #e6e6e6;
+  --color-background-tertiary: #f2f2f2;
+  --color-border-field: #80aaea;
+  --color-border-focused: #0054d4;
+  --color-border-disabled: #b3b3b3;
+  --color-border-divider: #7f7f7f;
+
+  /* フォントサイズ */
+  --font-size-xxxxxl: 2.25rem; /* 36px */
+  --font-size-xxxxl: 2rem; /* 32px */
+  --font-size-xxxl: 1.75rem; /* 28px */
+  --font-size-xxl: 1.5rem; /* 24px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-l: 1.125rem; /* 18px */
+  --font-size-m: 1rem; /* 16px */
+  --font-size-s: 0.875rem; /* 14px */
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-xxs: 0.625rem; /* 10px */
+
+  /* 行間 */
+  --line-height-m: 1.8;
+  --line-height-s: 1.4;
+  --line-height-same: 1.0;
+
+  /* 字間 */
+  --letter-spacing-m: 0.04em;
+  --letter-spacing-s: 0.02em;
+
+  /* フォントウェイト */
+  --font-weight-l: 300;
+  --font-weight-r: 400;
+  --font-weight-m: 500;
+  --font-weight-b: 700;
+}
+
+/* カスタムユーティリティクラス */
+@layer utilities {
+  /* カラー */
+  .text-primary {
+    color: var(--color-primary);
+  }
+  .text-secondary {
+    color: var(--color-secondary);
+  }
+  .text-tertiary {
+    color: var(--color-tertiary);
+  }
+  .text-on-fill {
+    color: var(--color-text-on-fill);
+  }
+  .text-body {
+    color: var(--color-text-body);
+  }
+  .text-description {
+    color: var(--color-text-description);
+  }
+  .bg-primary {
+    background-color: var(--color-primary);
+  }
+  .bg-secondary {
+    background-color: var(--color-secondary);
+  }
+  .bg-tertiary {
+    background-color: var(--color-tertiary);
+  }
+  .bg-on-fill {
+    background-color: var(--color-text-on-fill);
+  }
+  .border-primary {
+    border-color: var(--color-primary);
+  }
+  .border-secondary {
+    border-color: var(--color-secondary);
+  }
+
+  /* タイポグラフィ */
+  .text-xxxxxl {
+    font-size: var(--font-size-xxxxxl);
+  }
+  .text-xxxxl {
+    font-size: var(--font-size-xxxxl);
+  }
+  .text-xxxl {
+    font-size: var(--font-size-xxxl);
+  }
+  .text-xxl {
+    font-size: var(--font-size-xxl);
+  }
+  .text-xl {
+    font-size: var(--font-size-xl);
+  }
+  .text-l {
+    font-size: var(--font-size-l);
+  }
+  .text-m {
+    font-size: var(--font-size-m);
+  }
+  .text-s {
+    font-size: var(--font-size-s);
+  }
+  .text-xs {
+    font-size: var(--font-size-xs);
+  }
+  .text-xxs {
+    font-size: var(--font-size-xxs);
+  }
+  .leading-m {
+    line-height: var(--line-height-m);
+  }
+  .leading-s {
+    line-height: var(--line-height-s);
+  }
+  .leading-same {
+    line-height: var(--line-height-same);
+  }
+  .tracking-m {
+    letter-spacing: var(--letter-spacing-m);
+  }
+  .tracking-s {
+    letter-spacing: var(--letter-spacing-s);
+  }
+  .font-l {
+    font-weight: var(--font-weight-l);
+  }
+  .font-r {
+    font-weight: var(--font-weight-r);
+  }
+  .font-m {
+    font-weight: var(--font-weight-m);
+  }
+  .font-b {
+    font-weight: var(--font-weight-b);
+  }
+}
