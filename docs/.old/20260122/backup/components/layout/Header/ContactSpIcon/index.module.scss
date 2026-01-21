@@ -1,0 +1,40 @@
+@use '@/styles/global' as *;
+
+.contactSpIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: pxrem(48);
+  min-width: pxrem(48);
+  height: pxrem(48);
+  background-color: $p-color_brand-sub_primary;
+  border-radius: 8px;
+
+  &[data-modifier='active'] {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  @include media(header-pc) {
+    display: none;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+
+  @media (hover: none) {
+    -webkit-tap-highlight-color: transparent;
+
+    &:active {
+      opacity: 0.6;
+    }
+  }
+
+  img {
+    height: pxrem(16);
+    width: auto;
+  }
+}

@@ -1,0 +1,47 @@
+@use '@/styles/global' as *;
+
+.logo {
+  transition: $transition_high;
+  text-decoration: none;
+
+  @media (hover: hover) {
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+
+  @media (hover: none) {
+    -webkit-tap-highlight-color: transparent;
+
+    &:active {
+      opacity: 0.5;
+    }
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: pxrem(20);
+
+    @include media(header-sp) {
+      gap: pxrem(10);
+    }
+  }
+
+  img {
+    height: pxrem(36);
+    width: auto;
+  }
+
+  p {
+    font-family: $font-family_secondary;
+    color: $s-color_text_body;
+    @include font($font-size_xxl);
+    line-height: $line-height_s;
+    font-weight: $font-weight_l;
+
+    @include media(sp) {
+      @include font(min(pxvw(16), $font-size_xxl));
+    }
+  }
+}

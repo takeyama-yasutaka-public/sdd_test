@@ -1,0 +1,87 @@
+@use '@/styles/global' as *;
+
+.pager {
+  width: fit-content;
+
+  .inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: pxrem(5);
+  }
+}
+
+.pagerItem {
+  a,
+  button,
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: pxrem(40);
+    height: pxrem(40);
+    color: $p-color_brand-main_primary;
+    @include font($font-size_l);
+    line-height: $line-height_same;
+    text-decoration: none;
+    transition: $transition_high;
+
+    @media (hover: hover) {
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+
+    @media (hover: none) {
+      -webkit-tap-highlight-color: transparent;
+
+      &:active {
+        opacity: 0.5;
+      }
+    }
+
+    &[data-modifier='active'] {
+      background-color: $p-color_brand-main_primary;
+      border-radius: 100px;
+      color: $s-color_text_on-fill;
+      pointer-events: none;
+    }
+
+    &[data-modifier='dots'] {
+      color: $p-color_brand-main_primary;
+      pointer-events: none;
+    }
+  }
+}
+
+.pagerItemLR {
+  a,
+  button,
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: pxrem(40);
+    height: pxrem(40);
+    border: 1px solid $p-color_brand-main_primary;
+    border-radius: 100px;
+    color: $p-color_brand-main_primary;
+    @include font(pxrem(12));
+    line-height: $line-height_same;
+    text-decoration: none;
+    transition: $transition_high;
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: $p-color_brand-main_tertiary;
+      }
+    }
+
+    @media (hover: none) {
+      -webkit-tap-highlight-color: transparent;
+
+      &:active {
+        background-color: $p-color_brand-main_tertiary;
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+@use '@/styles/global' as *;
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  padding: pxrem(20) pxrem(40);
+  gap: pxrem(10);
+  align-items: center;
+  @include font($font-size_xs);
+  line-height: $line-height_s;
+
+  a {
+    color: $s-color_text_body;
+    text-decoration: none;
+    transition: $transition_high;
+
+    @media (hover: hover) {
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+
+    @media (hover: none) {
+      -webkit-tap-highlight-color: transparent;
+
+      &:active {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  p {
+    opacity: 0.5;
+  }
+
+  .icon {
+    @include font(pxrem(6));
+    opacity: 0.5;
+
+    &:last-child {
+      display: none;
+    }
+  }
+}

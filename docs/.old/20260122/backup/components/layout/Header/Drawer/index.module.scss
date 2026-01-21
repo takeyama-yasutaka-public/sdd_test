@@ -1,0 +1,99 @@
+@use '@/styles/global' as *;
+
+.drawer {
+  position: absolute;
+  top: $header-height_sp;
+  right: 0;
+  width: min(calc(pxrem(300) + 1px), 80vw);
+  height: calc(100vh - $header-height_sp);
+  background-color: $p-color_opacity_white_095;
+  transition: right var(--duration);
+  transform: translateX(100%);
+  transform-origin: right;
+  opacity: 0;
+  visibility: hidden;
+  animation: close var(--duration) forwards;
+
+  &[data-modifier='active'] {
+    opacity: 1;
+    visibility: visible;
+    animation: open var(--duration) forwards;
+  }
+}
+
+@keyframes open {
+  0% {
+    opacity: 1;
+    visibility: visible;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@keyframes close {
+  0% {
+    opacity: 1;
+    visibility: visible;
+  }
+  99% {
+    opacity: 1;
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.contactWrapper {
+  padding: pxrem(20) pxrem(40) 0;
+}
+
+.contact {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: pxrem(10) pxrem(20);
+  background-color: $p-color_brand-sub_primary;
+  border-radius: 8px;
+  color: $s-color_text_on-fill;
+  @include font($font-size_l);
+  line-height: $line-height_s;
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: $transition_high;
+
+  @media (hover: hover) {
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+
+  @media (hover: none) {
+    -webkit-tap-highlight-color: transparent;
+
+    &:active {
+      opacity: 0.6;
+    }
+  }
+
+  span {
+    transition: $transition_high;
+  }
+
+  span:first-child {
+    font-family: $font-family_secondary;
+    @include font($font-size_l);
+  }
+
+  span:last-child {
+    @include font($font-size_xxs);
+    line-height: $line-height_m;
+  }
+}

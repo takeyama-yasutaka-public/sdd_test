@@ -1,0 +1,83 @@
+@use '@/styles/global' as *;
+
+$min-height_pc: 0.9;
+$max-height_pc: 1.1;
+$min-height_sp: 0.9;
+$max-height_sp: 1.1;
+
+.slideshow {
+  position: absolute;
+  top: clamp(
+    calc(pxrem(220) * $min-height_pc),
+    pxvh(220),
+    calc(pxrem(220) * $max-height_pc)
+  );
+  right: 0;
+  width: pxvw(1080);
+  height: clamp(
+    calc(pxrem(720) * $min-height_pc),
+    pxvh(720),
+    calc(pxrem(720) * $max-height_pc)
+  );
+  border-radius: 72px 0px 72px 0px;
+  z-index: -1;
+  overflow: hidden;
+
+  .slideshowInner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .slideshowImageWrapper {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 100%;
+    height: 100%;
+    border-radius: 72px 0px 72px 0px;
+    overflow: hidden;
+    transition: left 2s ease;
+    animation: none;
+
+    &.active {
+      left: 0;
+      animation: zoom-in 2s ease 2s forwards;
+    }
+  }
+
+  .slideshowImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  @keyframes zoom-in {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.05);
+    }
+  }
+
+  @include media(sp) {
+    top: clamp(
+      calc(pxrem(230) * $min-height_sp),
+      pxvh(230),
+      calc(pxrem(230) * $max-height_sp)
+    );
+    width: pxvw(320);
+    height: clamp(
+      calc(pxrem(560) * $min-height_sp),
+      pxvh(560),
+      calc(pxrem(560) * $max-height_sp)
+    );
+    border-radius: 36px 0px 36px 0px;
+
+    .slideshowImageWrapper {
+      border-radius: 36px 0px 36px 0px;
+    }
+  }
+}

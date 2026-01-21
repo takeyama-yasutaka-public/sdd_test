@@ -1,0 +1,13 @@
+@use '@/styles/global' as *;
+
+.wrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-top: $header-height_pc;
+
+  @include media(header-sp) {
+    padding-top: $header-height_sp;
+  }
+}

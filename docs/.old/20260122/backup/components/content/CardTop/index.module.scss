@@ -1,0 +1,91 @@
+@use '@/styles/global' as *;
+
+.cardTopGroup {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: pxrem(20);
+
+  @include media(sp) {
+    flex-direction: column;
+  }
+
+  > div,
+  > a {
+    width: calc((100% - (pxrem(20) * 2)) / 3);
+
+    @include media(sp) {
+      width: 100%;
+    }
+  }
+}
+
+.cardTop {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: pxrem(20);
+  background-color: $p-color_white;
+  border-radius: 32px 0px 32px 0px;
+  display: block;
+  border: none;
+  text-decoration: none;
+  transition: $transition_middle;
+
+  @media (hover: hover) {
+    &:hover {
+      .imgWrapper {
+        img {
+          transform: scale(1.2);
+        }
+      }
+
+      .body {
+        p {
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+
+  @media (hover: none) {
+    -webkit-tap-highlight-color: transparent;
+
+    &:active {
+      .imgWrapper {
+        img {
+          transform: scale(1.2);
+        }
+      }
+
+      .body {
+        p {
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+
+  .imgWrapper {
+    width: 100%;
+    border-radius: 16px 0px 16px 0px;
+    overflow: hidden;
+
+    img {
+      @include image-aspect-ratio(ratio_16-9);
+    }
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    padding: pxrem(20) 0;
+    gap: pxrem(20);
+
+    p {
+      color: $s-color_text_body;
+      @include font($font-size_xl);
+      line-height: $line-height_s;
+    }
+  }
+}
