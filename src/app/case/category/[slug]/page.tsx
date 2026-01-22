@@ -43,10 +43,11 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }): Promise<Metadata> {
+  const { slug } = await params
   const categories = await getCaseCategory() || []
-  const category = categories.find((cat) => cat.slug === params.slug)
+  const category = categories.find((cat) => cat.slug === slug)
 
   if (!category) {
     return {
@@ -58,7 +59,7 @@ export async function generateMetadata({
     title: `${category.name} | ${siteMeta.siteTitle}`,
     description: '実績ページの説明',
     alternates: {
-      canonical: `/case/category/${params.slug}`,
+      canonical: `/case/category/${slug}`,
     },
     openGraph: {
       title: `${category.name} | ${siteMeta.siteTitle}`,
@@ -66,7 +67,7 @@ export async function generateMetadata({
       siteName: siteMeta.siteTitle,
       type: 'article',
       locale: siteMeta.siteLocale,
-      url: `${siteMeta.siteUrl}/case/category/${params.slug}`,
+      url: `${siteMeta.siteUrl}/case/category/${slug}`,
       images: {
         url: siteMeta.siteImgSrc,
         width: siteMeta.siteImgWidth,
@@ -92,19 +93,21 @@ export default async function CaseCategoryPage({
   params,
   searchParams,
 }: {
-  params: { slug: string }
-  searchParams: { page?: string }
+  params: Promise<{ slug: string }>
+  searchParams: Promise<{ page?: string }>
 }) {
+  const { slug } = await params
+  const resolvedSearchParams = await searchParams
   // カテゴリー取得
   const categories = await getCaseCategory() || []
-  const category = categories.find((cat) => cat.slug === params.slug)
+  const category = categories.find((cat) => cat.slug === slug)
 
   if (!category) {
     notFound()
   }
 
   // ページ番号取得
-  const page = searchParams.page ? parseInt(searchParams.page, 10) : 1
+  const page = resolvedSearchParams.page ? parseInt(resolvedSearchParams.page, 10) : 1
   const PER_PAGE = prePage.case
 
   // カテゴリー絞り込み実績データ取得
@@ -144,7 +147,7 @@ export default async function CaseCategoryPage({
   const breadcrumb = [
     { path: '/', name: 'TOP' },
     { path: '/case', name: '実績' },
-    { path: `/case/category/${params.slug}`, name: category.name },
+    { path: `/case/category/${slug}`, name: category.name },
   ]
 
   return (
@@ -153,7 +156,7 @@ export default async function CaseCategoryPage({
         type="article"
         name={category.name}
         description="実績ページの説明"
-        path={`/case/category/${params.slug}`}
+        path={`/case/category/${slug}`}
         breadcrumb={breadcrumb}
       />
       <Background />
@@ -168,7 +171,7 @@ export default async function CaseCategoryPage({
                 <ButtonCase
                   key={cat.id}
                   href={`/case/category/${cat.slug}`}
-                  current={cat.slug === params.slug}
+                  current={cat.slug === slug}
                 >
                   {cat.name}
                 </ButtonCase>
@@ -191,7 +194,7 @@ export default async function CaseCategoryPage({
             <Pager
               PER_PAGE={PER_PAGE}
               totalCount={totalCount}
-              path={`/case/category/${params.slug}`}
+              path={`/case/category/${slug}`}
               id={page}
             />
           </ContentFooter>

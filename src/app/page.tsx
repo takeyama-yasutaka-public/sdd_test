@@ -69,7 +69,7 @@ export default async function HomePage() {
   return (
     <>
       <StructuredData isHome={true} />
-      <Background modifier="home" />
+      <Background home />
       <MainVisual />
 
       {/* ABOUTセクション */}

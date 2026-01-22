@@ -13,13 +13,14 @@ export interface ButtonProps {
   type?: 'submit' | 'reset' | 'button' | undefined
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
   modifierColor?: string
+  className?: string
 }
 
 /**
  * Buttonコンポーネント
  * href指定時はLink要素、未指定時はbutton要素
  */
-export function Button({ children, href, type, onClick, modifierColor }: ButtonProps) {
+export function Button({ children, href, type, onClick, modifierColor, className: customClassName }: ButtonProps) {
   // 共通クラス
   const baseClasses =
     'relative inline-block w-fit min-w-[150px] max-w-full px-10 py-[15px] text-base font-medium no-underline text-center z-0 transition-all duration-100'
@@ -33,7 +34,7 @@ export function Button({ children, href, type, onClick, modifierColor }: ButtonP
       ? 'before:absolute before:inset-0 before:bg-white before:border before:border-primary before:rounded-full before:transition-all before:duration-100 before:-z-10 hover:before:inset-[-10px] active:before:inset-[-10px]'
       : 'before:absolute before:inset-0 before:bg-primary before:border before:border-transparent before:rounded-full before:transition-all before:duration-100 before:-z-10 hover:before:inset-[-10px] active:before:inset-[-10px]'
 
-  const className = `${baseClasses} ${textColorClass} ${beforeClasses}`
+  const className = customClassName || `${baseClasses} ${textColorClass} ${beforeClasses}`
 
   // href指定時はLink要素
   if (href) {

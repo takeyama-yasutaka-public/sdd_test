@@ -42,9 +42,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }): Promise<Metadata> {
-  const news = await getNewsPostById(params.id)
+  const { id } = await params
+  const news = await getNewsPostById(id)
 
   if (!news) {
     return {
@@ -58,7 +59,7 @@ export async function generateMetadata({
     title: `${news.title} | ${siteMeta.siteTitle}`,
     description,
     alternates: {
-      canonical: `/news/${params.id}`,
+      canonical: `/news/${id}`,
     },
     openGraph: {
       title: `${news.title} | ${siteMeta.siteTitle}`,
@@ -66,7 +67,7 @@ export async function generateMetadata({
       siteName: siteMeta.siteTitle,
       type: 'article',
       locale: siteMeta.siteLocale,
-      url: `${siteMeta.siteUrl}/news/${params.id}`,
+      url: `${siteMeta.siteUrl}/news/${id}`,
       images: {
         url: eyecatchLocal.url,
         width: eyecatchLocal.width,
@@ -91,9 +92,10 @@ export async function generateMetadata({
 export default async function NewsDetailPage({
   params,
 }: {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }) {
-  const news = await getNewsPostById(params.id)
+  const { id } = await params
+  const news = await getNewsPostById(id)
 
   if (!news) {
     notFound()
@@ -106,7 +108,7 @@ export default async function NewsDetailPage({
   const breadcrumb = [
     { path: '/', name: 'TOP' },
     { path: '/news', name: 'ニュース' },
-    { path: `/news/${params.id}`, name: news.title },
+    { path: `/news/${id}`, name: news.title },
   ]
 
   return (
@@ -115,7 +117,7 @@ export default async function NewsDetailPage({
         type="article"
         name={news.title}
         description={description}
-        path={`/news/${params.id}`}
+        path={`/news/${id}`}
         breadcrumb={breadcrumb}
       />
       <Background />

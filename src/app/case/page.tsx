@@ -65,10 +65,11 @@ const breadcrumb = [
 export default async function CasePage({
   searchParams,
 }: {
-  searchParams: { page?: string }
+  searchParams: Promise<{ page?: string }>
 }) {
+  const resolvedSearchParams = await searchParams
   // ページ番号取得
-  const page = searchParams.page ? parseInt(searchParams.page, 10) : 1
+  const page = resolvedSearchParams.page ? parseInt(resolvedSearchParams.page, 10) : 1
   const PER_PAGE = prePage.case
 
   // 実績データ取得

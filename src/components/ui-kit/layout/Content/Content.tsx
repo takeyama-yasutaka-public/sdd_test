@@ -59,7 +59,7 @@ export function ContentBody({ children }: ContentBodyProps) {
 
 // ContentFooter Props
 export interface ContentFooterProps {
-  children: ReactNode
+  children?: ReactNode
 }
 
 /**
@@ -67,5 +67,5 @@ export interface ContentFooterProps {
  * コンテンツフッターセクション
  */
 export function ContentFooter({ children }: ContentFooterProps) {
-  return <div>{children}</div>
+  return children ? <div>{children}</div> : null
 }

@@ -53,7 +53,7 @@ export function CardTopGroup({ children }: CardTopGroupProps) {
 // CardTop Props
 export interface CardTopProps {
   href: string
-  image: StaticImageData
+  image: StaticImageData | null
   alt: string
   category: Category[]
   text: string
@@ -75,15 +75,17 @@ export function CardTop({ href, image, alt, category, text }: CardTopProps) {
         href={href}
         className="flex flex-col h-full p-5 bg-white rounded-[32px_0px_32px_0px] block border-none no-underline transition-all duration-300 group"
       >
-        <div className="w-full rounded-[16px_0px_16px_0px] overflow-hidden imgWrapper">
-          <Image
-            src={image}
-            alt={alt}
-            placeholder="blur"
-            sizes="(max-width: 767.98px) 100vw, 400px"
-            className="aspect-video w-full h-auto group-hover:scale-120 group-active:scale-120 transition-transform duration-300"
-          />
-        </div>
+        {image && (
+          <div className="w-full rounded-[16px_0px_16px_0px] overflow-hidden imgWrapper">
+            <Image
+              src={image}
+              alt={alt}
+              placeholder="blur"
+              sizes="(max-width: 767.98px) 100vw, 400px"
+              className="aspect-video w-full h-auto group-hover:scale-120 group-active:scale-120 transition-transform duration-300"
+            />
+          </div>
+        )}
         <div className="flex flex-col py-5 gap-5 body">
           {category.length > 0 && (
             <ClassLabelGroup>

@@ -10,7 +10,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 
 interface MediaImageProps {
-  image: StaticImageData
+  image: StaticImageData | null
   alt: string
 }
 
@@ -23,6 +23,11 @@ export function MediaImage({ image, alt }: MediaImageProps) {
     rootMargin: '0% 0% -30% 0%',
     triggerOnce: true,
   })
+
+  // imageがnullまたはundefinedの場合は何もレンダリングしない
+  if (!image) {
+    return null
+  }
 
   return (
     <div className="wrapper">

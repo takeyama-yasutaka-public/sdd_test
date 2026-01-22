@@ -6,6 +6,9 @@
 
 @import "tailwindcss";
 
+/* docsフォルダをスキャン対象から除外 */
+@source not "../../docs";
+
 /* カスタムカラー定義 */
 @theme {
   /* Primitiveカラー（直接使用禁止） */

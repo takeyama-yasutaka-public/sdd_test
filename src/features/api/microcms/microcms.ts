@@ -6,9 +6,13 @@
 import { createClient } from 'microcms-js-sdk'
 
 // microCMSクライアント作成
+// 環境変数が設定されていない場合はダミー値を設定（開発環境用）
+const serviceDomain = process.env.SERVICE_DOMAIN || 'example'
+const apiKey = process.env.API_KEY || 'dummy-key'
+
 const client = createClient({
-  serviceDomain: process.env.SERVICE_DOMAIN || '',
-  apiKey: process.env.API_KEY || '',
+  serviceDomain,
+  apiKey,
 })
 
 // 型定義

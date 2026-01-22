@@ -46,9 +46,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }): Promise<Metadata> {
-  const caseItem = await getCasePostById(params.id)
+  const { id } = await params
+  const caseItem = await getCasePostById(id)
 
   if (!caseItem) {
     return {
@@ -63,7 +64,7 @@ export async function generateMetadata({
     title: `${caseItem.title} | ${siteMeta.siteTitle}`,
     description,
     alternates: {
-      canonical: `/case/${params.id}`,
+      canonical: `/case/${id}`,
     },
     openGraph: {
       title: `${caseItem.title} | ${siteMeta.siteTitle}`,
@@ -71,7 +72,7 @@ export async function generateMetadata({
       siteName: siteMeta.siteTitle,
       type: 'article',
       locale: siteMeta.siteLocale,
-      url: `${siteMeta.siteUrl}/case/${params.id}`,
+      url: `${siteMeta.siteUrl}/case/${id}`,
       images: {
         url: eyecatch.url,
         width: eyecatch.width,
@@ -96,9 +97,10 @@ export async function generateMetadata({
 export default async function CaseDetailPage({
   params,
 }: {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }) {
-  const caseItem = await getCasePostById(params.id)
+  const { id } = await params
+  const caseItem = await getCasePostById(id)
 
   if (!caseItem) {
     notFound()
@@ -122,7 +124,7 @@ export default async function CaseDetailPage({
   const breadcrumb = [
     { path: '/', name: 'TOP' },
     { path: '/case', name: '実績' },
-    { path: `/case/${params.id}`, name: caseItem.title },
+    { path: `/case/${id}`, name: caseItem.title },
   ]
 
   return (
@@ -132,7 +134,7 @@ export default async function CaseDetailPage({
         name={caseItem.title}
         description={description}
         imageUrl={eyecatch.url}
-        path={`/case/${params.id}`}
+        path={`/case/${id}`}
         breadcrumb={breadcrumb}
       />
       <Background />
