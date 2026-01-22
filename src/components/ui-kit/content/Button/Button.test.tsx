@@ -8,8 +8,10 @@ import { Button, ButtonCase, ButtonGroup } from './Button'
 
 // Next.js Linkコンポーネントのモック
 jest.mock('next/link', () => {
-  return ({ children, href }: { children: React.ReactNode; href: string }) => (
-    <a href={href}>{children}</a>
+  return ({ children, href, ...props }: any) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
   )
 })
 

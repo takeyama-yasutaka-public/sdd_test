@@ -14,21 +14,24 @@ jest.mock('next/image', () => ({
 
 // react-intersection-observerのモック
 jest.mock('react-intersection-observer', () => ({
-  useInView: () => [false, { ref: jest.fn() }],
+  // 実装側は [ref, inView] として利用している
+  useInView: () => [jest.fn(), false],
 }))
 
 describe('PageVisual', () => {
   // 各imageパターンの表示
   it('renders with about image', () => {
-    render(<PageVisual english="ABOUT" japanese="会社概要" image="about" />)
-    expect(screen.getByText('ABOUT')).toBeInTheDocument()
+    const { container } = render(<PageVisual english="ABOUT" japanese="会社概要" image="about" />)
+    // 英文は1文字ずつ分割されるため、親要素のtextContentで確認
+    expect(container).toHaveTextContent('ABOUT')
     expect(screen.getByText('会社概要')).toBeInTheDocument()
   })
 
   // タイトル表示
   it('renders title', () => {
-    render(<PageVisual english="SERVICE" japanese="サービス" image="service" />)
-    expect(screen.getByText('SERVICE')).toBeInTheDocument()
+    const { container } = render(<PageVisual english="SERVICE" japanese="サービス" image="service" />)
+    // 英文は1文字ずつ分割されるため、親要素のtextContentで確認
+    expect(container).toHaveTextContent('SERVICE')
     expect(screen.getByText('サービス')).toBeInTheDocument()
   })
 })

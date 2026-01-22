@@ -22,6 +22,9 @@ export function DrawerOverlay() {
     <div
       className="fixed inset-0 z-20 bg-black bg-opacity-50"
       onClick={drawerClose}
+      role="button"
+      tabIndex={0}
+      aria-label="Close drawer overlay"
       aria-hidden="true"
     />
   )

@@ -28,6 +28,9 @@ const customJestConfig = {
     '/.next/',
     '/docs/.old/',
   ],
+
+  // Haste mapがバックアップのpackage.jsonを拾って衝突するのを防ぐ
+  modulePathIgnorePatterns: ['<rootDir>/docs/.old/'],
   
   // カバレッジの設定
   collectCoverageFrom: [

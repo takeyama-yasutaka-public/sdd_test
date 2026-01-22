@@ -6,18 +6,6 @@
 import { render, screen } from '@testing-library/react'
 import { CardGroup, Card } from './Card'
 
-// Next.js LinkとImageのモック
-jest.mock('next/link', () => {
-  return ({ children, href }: { children: React.ReactNode; href: string }) => (
-    <a href={href}>{children}</a>
-  )
-})
-
-jest.mock('next/image', () => ({
-  __esModule: true,
-  default: (props: any) => <img {...props} />,
-}))
-
 const mockImageData = {
   url: '/test-image.jpg',
   width: 400,

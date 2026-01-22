@@ -10,19 +10,18 @@ describe('Forms', () => {
   // 入力画面表示
   it('renders input area', () => {
     render(<Forms />)
-    expect(screen.getByRole('textbox')).toBeInTheDocument()
+    expect(screen.getByPlaceholderText('テキスト')).toBeInTheDocument()
   })
 
   // バリデーション動作
   it('validates form inputs', () => {
     render(<Forms />)
-    const textbox = screen.getByRole('textbox')
-    expect(textbox).toBeInTheDocument()
+    expect(screen.getByPlaceholderText('テキストエリア')).toBeInTheDocument()
   })
 
   // 確認画面表示（スタイル確認）
   it('has confirm area setup', () => {
     render(<Forms />)
-    expect(screen.getByRole('textbox')).toBeInTheDocument()
+    expect(screen.getByText('確認')).toBeInTheDocument()
   })
 })

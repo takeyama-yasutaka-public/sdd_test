@@ -58,7 +58,8 @@ describe('Table', () => {
       </Table>
     )
     const table = container.querySelector('table')
-    expect(table?.parentElement).toHaveClass('overflow-x-auto')
+    // overflow-x-autoはtable自体に付与される
+    expect(table).toHaveClass('overflow-x-auto')
   })
 })
 

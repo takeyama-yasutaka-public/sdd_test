@@ -8,7 +8,7 @@ import { DrawerOverlay } from './DrawerOverlay'
 
 // zustand storeのモック
 const mockDrawerClose = jest.fn()
-jest.mock('@/features/utils/zustand', () => ({
+jest.mock('@/features/utils/zustand/zustand', () => ({
   useDrawerStore: () => ({
     drawerState: true,
     drawerClose: mockDrawerClose,

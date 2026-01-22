@@ -6,9 +6,24 @@
 import { render, screen } from '@testing-library/react'
 import NewsDetailPage from './page'
 
+// next/navigationのモック
+jest.mock('next/navigation', () => ({
+  ...jest.requireActual('next/navigation'),
+  notFound: jest.fn(() => {
+    throw new Error('notFound called')
+  }),
+}))
+
 // microCMS APIのモック
-jest.mock('@/features/api/microcms', () => ({
-  getNewsPostById: jest.fn(() => Promise.resolve(null)),
+jest.mock('@/features/api/microcms/microcms', () => ({
+  getNewsPostById: jest.fn(() =>
+    Promise.resolve({
+      id: '1',
+      title: 'テストニュース',
+      content: '<p>テストコンテンツ</p>',
+      date: '2026-01-01',
+    })
+  ),
 }))
 
 describe('NewsDetailPage', () => {

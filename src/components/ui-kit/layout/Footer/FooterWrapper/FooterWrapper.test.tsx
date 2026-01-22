@@ -7,11 +7,11 @@ import { render, screen } from '@testing-library/react'
 import { FooterWrapper } from './FooterWrapper'
 
 // zustand storeのモック
-jest.mock('@/features/utils/zustand', () => ({
+jest.mock('@/features/utils/zustand/zustand', () => ({
   useDrawerStore: () => ({
     drawerState: false,
   }),
-  useFooterWrapperTopStore: () => ({
+  useFooterWrapperStore: () => ({
     setFooterWrapperTop: jest.fn(),
   }),
 }))

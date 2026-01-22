@@ -11,6 +11,8 @@ describe('bodyScroll', () => {
     document.body.style.cssText = ''
     document.documentElement.style.cssText = ''
     window.scrollTo = jest.fn()
+    // bodyScrollFlagをリセットするためにbodyScrollStartを呼ぶ
+    bodyScrollStart()
   })
 
   describe('bodyScrollStop', () => {
@@ -19,7 +21,11 @@ describe('bodyScroll', () => {
       Object.defineProperty(navigator, 'userAgent', {
         value: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
         writable: true,
+        configurable: true,
       })
+      // スクロールバーがない場合をシミュレート
+      Object.defineProperty(window, 'innerWidth', { value: 1000, writable: true, configurable: true })
+      Object.defineProperty(document.body, 'clientWidth', { value: 1000, writable: true, configurable: true })
       bodyScrollStop()
       expect(document.body.style.overflow).toBe('hidden')
     })
@@ -29,8 +35,9 @@ describe('bodyScroll', () => {
       Object.defineProperty(navigator, 'userAgent', {
         value: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X)',
         writable: true,
+        configurable: true,
       })
-      Object.defineProperty(window, 'scrollY', { value: 100, writable: true })
+      Object.defineProperty(window, 'scrollY', { value: 100, writable: true, configurable: true })
       bodyScrollStop()
       expect(document.body.style.position).toBe('fixed')
     })

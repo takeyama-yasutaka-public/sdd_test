@@ -9,10 +9,11 @@ import { HeadingJpn, Heading } from './Heading'
 describe('HeadingJpn', () => {
   // HeadingJpn: 通常表示
   it('renders with default styles', () => {
-    render(<HeadingJpn>見出し</HeadingJpn>)
-    const heading = screen.getByText('見出し')
-    expect(heading).toBeInTheDocument()
-    expect(heading).toHaveClass('flex', 'items-center', 'gap-[10px]')
+    const { container } = render(<HeadingJpn>見出し</HeadingJpn>)
+    const text = screen.getByText('見出し')
+    expect(text).toBeInTheDocument()
+    // flexレイアウトはラッパー要素に付与される
+    expect(container.firstChild).toHaveClass('flex', 'items-center', 'gap-[10px]')
   })
 
   // HeadingJpn: color='white'時の表示

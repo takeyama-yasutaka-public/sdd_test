@@ -7,7 +7,7 @@ import { render, screen } from '@testing-library/react'
 import NewsPage from './page'
 
 // microCMS APIのモック
-jest.mock('@/features/api/microcms', () => ({
+jest.mock('@/features/api/microcms/microcms', () => ({
   getNewsAll: jest.fn(() => Promise.resolve({ contents: [], totalCount: 0 })),
 }))
 

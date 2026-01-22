@@ -8,21 +8,23 @@ import { HeadingTopEng, HeadingEng } from './HeadingEng'
 
 // react-intersection-observerのモック
 jest.mock('react-intersection-observer', () => ({
-  useInView: () => [false, { ref: jest.fn() }],
+  // 実装側は [ref, inView] として利用している
+  useInView: () => [jest.fn(), false],
 }))
 
 describe('HeadingTopEng', () => {
   // HeadingTopEng: 通常表示
   it('renders with default styles', () => {
-    render(<HeadingTopEng english="TEST" />)
-    expect(screen.getByText('TEST')).toBeInTheDocument()
+    const { container } = render(<HeadingTopEng english="TEST" />)
+    // 英文は1文字ずつ分割されるため、親要素のtextContentで確認
+    expect(container).toHaveTextContent('TEST')
   })
 
   // HeadingTopEng: modifierColor='white'時の表示
   it('applies white color modifier', () => {
-    render(<HeadingTopEng english="TEST" color="white" />)
-    const heading = screen.getByText('TEST')
-    expect(heading).toHaveClass('text-on-fill')
+    const { container } = render(<HeadingTopEng english="TEST" color="white" />)
+    const wrapper = container.firstChild
+    expect(wrapper).toHaveClass('text-on-fill')
   })
 })
 
@@ -42,8 +44,8 @@ describe('HeadingEng', () => {
 
   // HeadingTopEng: スクロールアニメーション（スタイル確認）
   it('has scroll animation setup for HeadingTopEng', () => {
-    render(<HeadingTopEng english="TEST" />)
-    expect(screen.getByText('TEST')).toBeInTheDocument()
+    const { container } = render(<HeadingTopEng english="TEST" />)
+    expect(container).toHaveTextContent('TEST')
   })
 
   // HeadingEng: スクロールアニメーション（スタイル確認）

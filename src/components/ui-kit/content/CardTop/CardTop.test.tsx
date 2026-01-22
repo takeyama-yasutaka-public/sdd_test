@@ -8,8 +8,10 @@ import { CardTopGroup, CardTop } from './CardTop'
 
 // Next.js LinkとImageのモック
 jest.mock('next/link', () => {
-  return ({ children, href }: { children: React.ReactNode; href: string }) => (
-    <a href={href}>{children}</a>
+  return ({ children, href, ...props }: any) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
   )
 })
 
@@ -113,8 +115,8 @@ describe('CardTop', () => {
         text="テストテキスト"
       />
     )
-    const card = container.firstChild
-    expect(card).toHaveClass('transition-all', 'duration-300')
+    const link = container.querySelector('a')
+    expect(link).toHaveClass('transition-all', 'duration-300')
   })
 
   // CardTop: カテゴリーラベル表示

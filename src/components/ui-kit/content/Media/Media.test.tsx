@@ -21,7 +21,8 @@ jest.mock('framer-motion', () => ({
 
 // react-intersection-observerのモック
 jest.mock('react-intersection-observer', () => ({
-  useInView: () => [false, { ref: jest.fn() }],
+  // 実装側は [ref, inView] として利用している
+  useInView: () => [jest.fn(), false],
 }))
 
 const mockImageData = {

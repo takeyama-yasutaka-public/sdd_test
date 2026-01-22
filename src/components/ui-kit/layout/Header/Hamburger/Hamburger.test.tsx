@@ -8,10 +8,12 @@ import { Hamburger } from './Hamburger'
 
 // zustand storeのモック
 const mockDrawerToggle = jest.fn()
-jest.mock('@/features/utils/zustand', () => ({
+jest.mock('@/features/utils/zustand/zustand', () => ({
   useDrawerStore: () => ({
     drawerState: false,
     drawerToggle: mockDrawerToggle,
+  }),
+  useHeaderResetStore: () => ({
     headerResetState: false,
   }),
 }))

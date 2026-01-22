@@ -30,7 +30,8 @@ describe('FormRadio', () => {
     const handleChange = jest.fn()
     render(<FormRadio name="test" value="1" onChange={handleChange} />)
     const radio = screen.getByRole('radio')
-    fireEvent.change(radio, { target: { checked: true } })
+    // Radioはclickで選択されるためclickで検証する
+    fireEvent.click(radio)
     expect(handleChange).toHaveBeenCalled()
   })
 })

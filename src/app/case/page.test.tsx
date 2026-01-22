@@ -7,7 +7,7 @@ import { render, screen } from '@testing-library/react'
 import CasePage from './page'
 
 // microCMS APIのモック
-jest.mock('@/features/api/microcms', () => ({
+jest.mock('@/features/api/microcms/microcms', () => ({
   getCaseAll: jest.fn(() => Promise.resolve({ contents: [], totalCount: 0 })),
   getCaseCategory: jest.fn(() => Promise.resolve([])),
 }))

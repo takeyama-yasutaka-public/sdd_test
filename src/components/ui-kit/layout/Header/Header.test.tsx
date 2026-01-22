@@ -7,34 +7,35 @@ import { render, screen } from '@testing-library/react'
 import { Header } from './Header'
 
 // zustand storeのモック
-jest.mock('@/features/utils/zustand', () => ({
+let mockDrawerState = false
+jest.mock('@/features/utils/zustand/zustand', () => ({
   useDrawerStore: () => ({
-    drawerState: false,
+    drawerState: mockDrawerState,
   }),
 }))
 
 // 子コンポーネントのモック
-jest.mock('./Logo', () => ({
+jest.mock('./Logo/Logo', () => ({
   Logo: () => <div data-testid="logo">Logo</div>,
 }))
 
-jest.mock('./Dropdown', () => ({
+jest.mock('./Dropdown/Dropdown', () => ({
   Dropdown: () => <div data-testid="dropdown">Dropdown</div>,
 }))
 
-jest.mock('./ContactSpIcon', () => ({
+jest.mock('./ContactSpIcon/ContactSpIcon', () => ({
   ContactSpIcon: () => <div data-testid="contact-sp-icon">ContactSpIcon</div>,
 }))
 
-jest.mock('./Hamburger', () => ({
+jest.mock('./Hamburger/Hamburger', () => ({
   Hamburger: () => <div data-testid="hamburger">Hamburger</div>,
 }))
 
-jest.mock('./Drawer', () => ({
+jest.mock('./Drawer/Drawer', () => ({
   Drawer: () => <div data-testid="drawer">Drawer</div>,
 }))
 
-jest.mock('./DrawerOverlay', () => ({
+jest.mock('./DrawerOverlay/DrawerOverlay', () => ({
   DrawerOverlay: () => <div data-testid="drawer-overlay">DrawerOverlay</div>,
 }))
 
@@ -48,14 +49,11 @@ describe('Header', () => {
 
   // drawerState=true時の表示（スタイル確認）
   it('applies active modifier when drawerState is true', () => {
-    jest.mock('@/features/utils/zustand', () => ({
-      useDrawerStore: () => ({
-        drawerState: true,
-      }),
-    }))
+    mockDrawerState = true
     const { container } = render(<Header />)
     const header = container.firstChild
     expect(header).toBeInTheDocument()
+    mockDrawerState = false
   })
 
   // PC/SP表示切り替え（スタイル確認）

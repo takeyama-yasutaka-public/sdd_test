@@ -7,7 +7,7 @@ import { render, screen } from '@testing-library/react'
 import { Loading } from './Loading'
 
 // zustand storeのモック
-jest.mock('@/features/utils/zustand', () => ({
+jest.mock('@/features/utils/zustand/zustand', () => ({
   useLoadingStore: () => ({
     loadingState: true,
     allImagesLoaded: false,
@@ -16,7 +16,7 @@ jest.mock('@/features/utils/zustand', () => ({
 }))
 
 // bodyScrollのモック
-jest.mock('@/features/utils/bodyScroll', () => ({
+jest.mock('@/features/utils/bodyScroll/bodyScroll', () => ({
   bodyScrollStop: jest.fn(),
   bodyScrollStart: jest.fn(),
 }))

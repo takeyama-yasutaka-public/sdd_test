@@ -7,7 +7,7 @@ import { render, screen } from '@testing-library/react'
 import { Dropdown } from './Dropdown'
 
 // DropdownItemのモック
-jest.mock('./DropdownItem', () => ({
+jest.mock('./DropdownItem/DropdownItem', () => ({
   DropdownItem: ({ path, english, japanese }: any) => (
     <li>
       <a href={path}>{english} {japanese}</a>
@@ -17,8 +17,10 @@ jest.mock('./DropdownItem', () => ({
 
 // Next.js Linkのモック
 jest.mock('next/link', () => {
-  return ({ children, href }: { children: React.ReactNode; href: string }) => (
-    <a href={href}>{children}</a>
+  return ({ children, href, ...props }: any) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
   )
 })
 
@@ -32,7 +34,7 @@ describe('Dropdown', () => {
   // お問い合わせリンク表示
   it('renders contact link', () => {
     render(<Dropdown />)
-    const contactLink = screen.getByRole('link', { name: /お問い合わせ/i })
+    const contactLink = screen.getByRole('link', { name: 'CONTACT' })
     expect(contactLink).toBeInTheDocument()
   })
 })

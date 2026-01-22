@@ -7,7 +7,7 @@ import { render, screen } from '@testing-library/react'
 import { Wrapper } from './Wrapper'
 
 // zustand storeのモック
-jest.mock('@/features/utils/zustand', () => ({
+jest.mock('@/features/utils/zustand/zustand', () => ({
   useDrawerStore: () => ({
     drawerState: false,
   }),

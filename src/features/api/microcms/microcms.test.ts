@@ -15,7 +15,13 @@ import {
 // microCMS SDKのモック
 jest.mock('microcms-js-sdk', () => ({
   createClient: jest.fn(() => ({
-    get: jest.fn(),
+    // どのendpointでも最低限のshapeを返す（このテストはtoBeDefinedのみ）
+    get: jest.fn(async () => ({
+      contents: [],
+      totalCount: 0,
+      limit: 0,
+      offset: 0,
+    })),
   })),
 }))
 

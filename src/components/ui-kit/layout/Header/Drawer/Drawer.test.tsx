@@ -7,24 +7,27 @@ import { render } from '@testing-library/react'
 import { Drawer } from './Drawer'
 
 // zustand storeのモック
-jest.mock('@/features/utils/zustand', () => ({
+jest.mock('@/features/utils/zustand/zustand', () => ({
   useDrawerStore: () => ({
     drawerState: false,
     drawerWidth: 400,
     drawerDuration: 300,
-    headerResetState: false,
+    drawerWidthReset: false,
     drawerClose: jest.fn(),
+  }),
+  useHeaderResetStore: () => ({
+    headerResetState: false,
   }),
 }))
 
 // bodyScrollのモック
-jest.mock('@/features/utils/bodyScroll', () => ({
+jest.mock('@/features/utils/bodyScroll/bodyScroll', () => ({
   bodyScrollStop: jest.fn(),
   bodyScrollStart: jest.fn(),
 }))
 
 // DrawerItemのモック
-jest.mock('./DrawerItem', () => ({
+jest.mock('./DrawerItem/DrawerItem', () => ({
   DrawerItem: ({ path, english, japanese }: any) => (
     <li>
       <a href={path}>{english} {japanese}</a>
@@ -34,8 +37,10 @@ jest.mock('./DrawerItem', () => ({
 
 // Next.js Linkのモック
 jest.mock('next/link', () => {
-  return ({ children, href }: { children: React.ReactNode; href: string }) => (
-    <a href={href}>{children}</a>
+  return ({ children, href, ...props }: any) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
   )
 })
 

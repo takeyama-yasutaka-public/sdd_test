@@ -8,13 +8,15 @@ import { NewsPosts, NewsPostsItem } from './NewsPosts'
 
 // Next.js Linkのモック
 jest.mock('next/link', () => {
-  return ({ children, href }: { children: React.ReactNode; href: string }) => (
-    <a href={href}>{children}</a>
+  return ({ children, href, ...props }: any) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
   )
 })
 
 // formatDateのモック
-jest.mock('@/features/utils/formatDate', () => ({
+jest.mock('@/features/utils/formatDate/formatDate', () => ({
   formatDate: (date: string) => '2026年1月22日',
 }))
 

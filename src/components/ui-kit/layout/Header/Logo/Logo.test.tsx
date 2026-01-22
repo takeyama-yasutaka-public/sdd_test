@@ -24,8 +24,8 @@ jest.mock('next/navigation', () => ({
 }))
 
 // zustand storeのモック
-jest.mock('@/features/utils/zustand', () => ({
-  useHeaderStore: () => ({
+jest.mock('@/features/utils/zustand/zustand', () => ({
+  useHeaderResetStore: () => ({
     headerResetOn: jest.fn(),
     headerResetOff: jest.fn(),
   }),

@@ -7,7 +7,7 @@ import { render, screen } from '@testing-library/react'
 import { MainVisual } from './MainVisual'
 
 // zustand storeのモック
-jest.mock('@/features/utils/zustand', () => ({
+jest.mock('@/features/utils/zustand/zustand', () => ({
   useLoadingStore: () => ({
     loadingState: false,
   }),
@@ -21,7 +21,7 @@ jest.mock('framer-motion', () => ({
 }))
 
 // Slideshowのモック
-jest.mock('../Slideshow', () => ({
+jest.mock('../Slideshow/Slideshow', () => ({
   Slideshow: () => <div data-testid="slideshow">Slideshow</div>,
 }))
 

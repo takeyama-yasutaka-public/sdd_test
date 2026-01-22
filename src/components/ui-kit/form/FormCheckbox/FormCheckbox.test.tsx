@@ -30,7 +30,8 @@ describe('FormCheckbox', () => {
     const handleChange = jest.fn()
     render(<FormCheckbox name="test" value="1" onChange={handleChange} />)
     const checkbox = screen.getByRole('checkbox')
-    fireEvent.change(checkbox, { target: { checked: true } })
+    // Checkboxはclickで選択されるためclickで検証する
+    fireEvent.click(checkbox)
     expect(handleChange).toHaveBeenCalled()
   })
 })

@@ -4,7 +4,7 @@
  */
 
 import { render, screen } from '@testing-library/react'
-import NotFoundPage from './page'
+import NotFoundPage from '../not-found'
 
 describe('NotFoundPage', () => {
   // 404表示（スタイル確認）

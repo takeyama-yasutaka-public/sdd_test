@@ -6,10 +6,9 @@
 import { render } from '@testing-library/react'
 import { NavigationEvents } from './NavigationEvents'
 
-// bodyScrollStartのモック
-const mockBodyScrollStart = jest.fn()
-jest.mock('@/features/utils/bodyScroll', () => ({
-  bodyScrollStart: mockBodyScrollStart,
+// bodyScrollStartのモック（jest.mockはhoistされるためfactory内で作る）
+jest.mock('@/features/utils/bodyScroll/bodyScroll', () => ({
+  bodyScrollStart: jest.fn(),
 }))
 
 // Next.js navigationのモック

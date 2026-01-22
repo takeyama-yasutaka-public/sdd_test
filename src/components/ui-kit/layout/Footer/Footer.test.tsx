@@ -13,12 +13,12 @@ jest.mock('next/image', () => ({
 }))
 
 // FooterWrapperのモック
-jest.mock('./FooterWrapper', () => ({
+jest.mock('./FooterWrapper/FooterWrapper', () => ({
   FooterWrapper: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 }))
 
 // FooterNavのモック
-jest.mock('./FooterNav', () => ({
+jest.mock('./FooterNav/FooterNav', () => ({
   FooterNav: () => <nav data-testid="footer-nav">FooterNav</nav>,
 }))
 
@@ -33,7 +33,8 @@ describe('Footer', () => {
   // ロゴ表示
   it('renders logo', () => {
     render(<Footer />)
-    expect(screen.getByText(/WEB CORPORATION/i)).toBeInTheDocument()
+    // ロゴ画像のaltで確認（同文言がcopyrightにも含まれるため）
+    expect(screen.getByRole('img', { name: 'WEB CORPORATION' })).toBeInTheDocument()
   })
 
   // ナビゲーション表示

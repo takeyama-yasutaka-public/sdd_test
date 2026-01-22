@@ -8,8 +8,10 @@ import { Pager, PagerItem } from './Pager'
 
 // Next.js Linkのモック
 jest.mock('next/link', () => {
-  return ({ children, href }: { children: React.ReactNode; href: string }) => (
-    <a href={href}>{children}</a>
+  return ({ children, href, ...props }: any) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
   )
 })
 
@@ -61,7 +63,7 @@ describe('PagerItem', () => {
   // PagerItem: type='prev'/'next'の表示と動作
   it('renders prev type as Link when href is provided', () => {
     render(<PagerItem type="prev" href="/page/1" />)
-    const link = screen.getByRole('link', { name: '前へ' })
+    const link = screen.getByRole('link', { name: '前のページへ' })
     expect(link).toBeInTheDocument()
     expect(link).toHaveAttribute('href', '/page/1')
   })
@@ -69,7 +71,7 @@ describe('PagerItem', () => {
   it('renders next type as button when href is not provided', () => {
     const handleClick = jest.fn()
     render(<PagerItem type="next" onClick={handleClick} />)
-    const button = screen.getByRole('button', { name: '次へ' })
+    const button = screen.getByRole('button', { name: '次のページへ' })
     expect(button).toBeInTheDocument()
     fireEvent.click(button)
     expect(handleClick).toHaveBeenCalledTimes(1)
